@@ -18,7 +18,7 @@
         <a class="nav-link" href="#">Цены</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Пользователи</a>
+        <a class="nav-link" href="{{ route('users.index') }}">Пользователи</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
