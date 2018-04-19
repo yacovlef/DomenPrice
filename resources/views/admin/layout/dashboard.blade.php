@@ -13,7 +13,9 @@
   <body>
     @include('admin.layout._navbar')
 
-    @yield('content')
+    <div class="container">
+      @yield('content')
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
