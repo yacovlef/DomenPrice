@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'AppController@index')->name('index');
 
-Route::namespace('Admin')->prefix('admin')->group(function () {
-  Route::get('/', 'DashboardController@index');
+Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
+  Route::get('/', 'DashboardController@index')->name('dashboard.index');
   Route::resource('domains', 'DomainController');
   Route::resource('registrars', 'RegistrarController');
   Route::resource('prices', 'PriceController');

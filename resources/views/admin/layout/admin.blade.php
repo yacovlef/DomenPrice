@@ -14,6 +14,8 @@
     @include('admin.layout._navbar')
 
     <div class="container">
+      @include('admin.layout._alert')
+      
       @yield('content')
     </div>
 

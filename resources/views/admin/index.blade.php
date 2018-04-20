@@ -1,4 +1,4 @@
-@extends('admin.layout.dashboard')
+@extends('admin.layout.admin')
 
 @section('title', ' / Панель администратора')
 

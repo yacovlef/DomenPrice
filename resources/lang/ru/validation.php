@@ -132,5 +132,10 @@ return [
     */
 
     'attributes' => [
+      // admin.users.create
+      'first_name' => 'имя',
+      'last_name' => 'фамилия',
+      'email' => 'эл. почта',
+      'password' => 'пароль',
     ],
 ];

@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+
+use App\User;
+
 class UserController extends Controller
 {
     /**
@@ -14,7 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-      return view('admin.user.index');
+      $users = User::all();
+
+      return view('admin.user.index',[
+        'users' => $users,
+      ]);
     }
 
     /**
@@ -41,6 +50,15 @@ class UserController extends Controller
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|min:6|max:255|confirmed',
       ]);
+
+      User::create([
+          'first_name' => $request->input('first_name'),
+          'last_name' => $request->input('last_name'),
+          'email' => $request->input('email'),
+          'password' => Hash::make($request->input('password')),
+      ]);
+
+      return redirect()->route('admin.users.index')->with('status', 'Пользователь добавлен!');
     }
 
     /**
@@ -62,7 +80,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+      $user = User::findOrFail($id);
+
+      return view('admin.user.edit',[
+        'user' => $user,
+      ]);
     }
 
     /**
@@ -74,7 +96,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $user = User::findOrFail($id);
+
+      $request->validate([
+        'first_name' => 'required|max:255',
+        'last_name' => 'required|max:255',
+        'email' => 'required|email|max:255',
+        'email' => Rule::unique('users')->ignore($user->id, 'id'),
+        'password' => 'nullable|min:6|max:255|confirmed',
+      ]);
+
+      $user->update([
+        'first_name' => $request->input('first_name'),
+        'last_name' => $request->input('last_name'),
+        'email' => $request->input('email'),
+      ]);
+
+      if ($request->filled('password')) {
+        $user->update([
+          'password' => Hash::make($request->input('password')),
+        ]);
+      }
+
+      return redirect()->route('admin.users.index')->with('status', 'Пользователь отредактирован!');
     }
 
     /**
@@ -85,6 +129,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $user = User::findOrFail($id);
+
+      $user->delete();
+
+      return redirect()->route('admin.users.index')->with('status', 'Пользователь удалён!');
     }
 }
