@@ -132,7 +132,7 @@ return [
     */
 
     'attributes' => [
-      // admin.users.create
+      // admin.users.create / admin.auth.login
       'first_name' => 'имя',
       'last_name' => 'фамилия',
       'email' => 'эл. почта',

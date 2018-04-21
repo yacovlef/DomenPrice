@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 
@@ -129,10 +130,34 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-      $user = User::findOrFail($id);
-
-      $user->delete();
+      $user = User::findOrFail($id)->delete();
 
       return redirect()->route('admin.users.index')->with('status', 'Пользователь удалён!');
+    }
+
+    public function login(Request $request)
+    {
+      $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+      ]);
+
+      if (Auth::attempt([
+        'email' => $request->input('email'),
+        'password' => $request->input('password'),
+      ])) {
+
+          return redirect()->intended();
+      }
+
+      return redirect()->route('admin.auth.index')->with('status', 'Не верная эл. почта или пароль!');
+
+    }
+
+    public function logout()
+    {
+      Auth::logout();
+
+      return redirect()->route('index');
     }
 }

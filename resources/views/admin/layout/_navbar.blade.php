@@ -5,8 +5,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item{{ (URL::current() == route('admin.dashboard.index')) ? ' active' : null }}">
-        <a class="nav-link" href="{{ route('admin.dashboard.index') }}">Главная</a>
+      <li class="nav-item{{ (URL::current() == route('admin.index')) ? ' active' : null }}">
+        <a class="nav-link" href="{{ route('admin.index') }}">Главная</a>
       </li>
       <li class="nav-item{{ (URL::current() == route('admin.domains.index')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.domains.index') }}">Домены</a>
@@ -24,10 +24,14 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Яковлев Алексей
+          {{Auth::user()->last_name . ' ' . Auth::user()->first_name}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Выход</a>
+          <form method="post" action="{{ route('admin.users.logout') }}">
+            @csrf
+            
+            <button type="submit" class="dropdown-item">Выход</button>
+          </form>
         </div>
       </li>
     </ul>

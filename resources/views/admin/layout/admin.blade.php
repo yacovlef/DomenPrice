@@ -11,11 +11,13 @@
     <title>{{ env('APP_NAME') }}@yield('title')</title>
   </head>
   <body>
-    @include('admin.layout._navbar')
+    @auth
+      @include('admin.layout._navbar')
+    @endauth
 
     <div class="container">
       @include('admin.layout._alert')
-      
+
       @yield('content')
     </div>
 

@@ -14,9 +14,17 @@
 Route::get('/', 'AppController@index')->name('index');
 
 Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
-  Route::get('/', 'DashboardController@index')->name('dashboard.index');
-  Route::resource('domains', 'DomainController');
-  Route::resource('registrars', 'RegistrarController');
-  Route::resource('prices', 'PriceController');
-  Route::resource('users', 'UserController');
+  Route::middleware('guest')->group(function () {
+    Route::get('/login', 'AdminController@login')->name('login');
+    Route::post('/users/login', 'UserController@login')->name('users.login');
+  });
+
+  Route::middleware('auth')->group(function () {
+    Route::post('/users/logout', 'UserController@logout')->name('users.logout');
+    Route::get('/', 'AdminController@index')->name('index');
+    Route::resource('/domains', 'DomainController');
+    Route::resource('/registrars', 'RegistrarController');
+    Route::resource('/prices', 'PriceController');
+    Route::resource('/users', 'UserController');
+  });
 });
