@@ -57,8 +57,8 @@
         <input id="password_confirmation" name="password_confirmation" type="password" class="form-control">
       </div>
 
-      <button type="submit" class="btn btn-outline-dark">Сохранить</button>
       <a class="btn btn-outline-secondary" href="{{ route('admin.users.index') }}" role="button">Отменить</a>
+      <button type="submit" class="btn btn-outline-dark">Сохранить</button>
     </form>
   </div>
 </div>

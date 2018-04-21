@@ -29,7 +29,7 @@
               @method('DELETE')
               @csrf
 
-              <button type="submit" class="btn btn-outline-dark btn-sm">Удалить</button>
+              <button type="submit" class="btn btn-outline-dark btn-sm" onclick="return confirm ('Удалить пользователя?')">Удалить</button>
             </form>
 
           </td>

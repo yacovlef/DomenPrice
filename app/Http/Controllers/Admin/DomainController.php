@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Validation\Rule;
+
+use App\Domain;
+
 class DomainController extends Controller
 {
     /**
@@ -14,7 +18,11 @@ class DomainController extends Controller
      */
     public function index()
     {
-        //
+      $domains = Domain::paginate(10);
+
+      return view('admin.domain.index',[
+        'domains' => $domains,
+      ]);
     }
 
     /**
@@ -24,7 +32,7 @@ class DomainController extends Controller
      */
     public function create()
     {
-        //
+      return view('admin.domain.create');
     }
 
     /**
@@ -35,7 +43,14 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'slug' => 'required|max:255|unique:domains',
+        'name' => 'required|max:255|unique:domains',
+      ]);
+
+      Domain::create($request->all());
+
+      return redirect()->route('admin.domains.index')->with('status', 'Домен добавлен!');
     }
 
     /**
@@ -57,7 +72,11 @@ class DomainController extends Controller
      */
     public function edit($id)
     {
-        //
+      $domain = Domain::findOrFail($id);
+
+      return view('admin.domain.edit',[
+        'domain' => $domain,
+      ]);
     }
 
     /**
@@ -69,7 +88,18 @@ class DomainController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $domain = Domain::findOrFail($id);
+
+      $request->validate([
+        'slug' => 'required|max:255|unique:domains',
+        'slug' => Rule::unique('domains')->ignore($domain->id, 'id'),
+        'name' => 'required|max:255|unique:domains',
+        'name' => Rule::unique('domains')->ignore($domain->id, 'id'),
+      ]);
+
+      $domain->update($request->all());
+
+      return redirect()->route('admin.domains.index')->with('status', 'Домен отредактирован!');
     }
 
     /**
@@ -80,6 +110,8 @@ class DomainController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $domain = Domain::findOrFail($id)->delete();
+
+      return redirect()->route('admin.domains.index')->with('status', 'Домен удалён!');
     }
 }

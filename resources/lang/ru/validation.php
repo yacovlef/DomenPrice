@@ -137,5 +137,8 @@ return [
       'last_name' => 'фамилия',
       'email' => 'эл. почта',
       'password' => 'пароль',
+      // admin.domains.create
+      'slug' => 'slug',
+      'name' => 'имя',
     ],
 ];
