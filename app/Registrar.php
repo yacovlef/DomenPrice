@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Registrar extends Model
 {
-    //
+  protected $fillable = [
+      'slug', 'name', 'logo', 'www',
+  ];
 }

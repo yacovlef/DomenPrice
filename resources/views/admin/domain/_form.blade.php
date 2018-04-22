@@ -2,15 +2,15 @@
   <h5 class="card-header bg-white">Новый домен</h5>
 
   <div class="card-body">
-    <form method="post" action="{{ (Route::currentRouteName() == 'admin.domains.create') ? route('admin.domains.store') : route('admin.domains.update', ['id' => $domain->id]) }}">
+    <form method="post" action="{{ (request()->is('admin/domains/create')) ? route('admin.domains.store') : route('admin.domains.update', ['id' => $domain->id]) }}">
       @csrf
-      @unless (Route::currentRouteName() == 'admin.domains.create')
+      @unless (request()->is('admin/domains/create'))
         @method('PUT')
       @endunless
 
       <div class="form-group">
         <label for="slug">Slug</label>
-        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (Route::currentRouteName() == 'admin.domains.create') ? old('slug') : $domain->slug }}">
+        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? old('slug') : $domain->slug }}">
 
         @if ($errors->has('slug'))
           <div class="invalid-feedback">
@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label for="name">Имя</label>
-        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (Route::currentRouteName() == 'admin.domains.create') ? old('name') : $domain->name }}">
+        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? old('name') : $domain->name }}">
 
         @if ($errors->has('name'))
           <div class="invalid-feedback">

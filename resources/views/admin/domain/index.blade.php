@@ -26,14 +26,11 @@
             <form method="post" action="{{ route('admin.domains.destroy', ['id' => $domain->id]) }}" class="d-inline">
               @method('DELETE')
               @csrf
-
               <button type="submit" class="btn btn-outline-dark btn-sm" onclick="return confirm ('Удалить домен?')">Удалить</button>
             </form>
-
           </td>
         </tr>
       @endforeach
-
     </tbody>
   </table>
 

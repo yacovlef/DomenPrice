@@ -32,8 +32,8 @@
           @endif
         </div>
 
-        <button type="submit" class="btn btn-outline-dark">Войти</button>
         <a class="btn btn-outline-secondary" href="{{ route('index') }}" role="button">Отменить</a>
+        <button type="submit" class="btn btn-outline-dark">Войти</button>
       </form>
     </div>
   </div>

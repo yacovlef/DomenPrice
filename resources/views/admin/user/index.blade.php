@@ -28,10 +28,8 @@
             <form method="post" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}" class="d-inline">
               @method('DELETE')
               @csrf
-
               <button type="submit" class="btn btn-outline-dark btn-sm" onclick="return confirm ('Удалить пользователя?')">Удалить</button>
             </form>
-
           </td>
         </tr>
       @endforeach

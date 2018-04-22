@@ -5,19 +5,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item{{ (URL::current() == route('admin.index')) ? ' active' : null }}">
+      <li class="nav-item{{ (request()->is('admin')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.index') }}">Главная</a>
       </li>
-      <li class="nav-item{{ (URL::current() == route('admin.domains.index')) ? ' active' : null }}">
+      <li class="nav-item{{ (request()->is('admin/domains*')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.domains.index') }}">Домены</a>
       </li>
-      <li class="nav-item{{ (URL::current() == route('admin.registrars.index')) ? ' active' : null }}">
+      <li class="nav-item{{ (request()->is('admin/registrars*')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.registrars.index') }}">Регистраторы</a>
       </li>
-      <li class="nav-item{{ (URL::current() == route('admin.prices.index')) ? ' active' : null }}">
+      <li class="nav-item{{ (request()->is('admin/prices*')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.prices.index') }}">Цены</a>
       </li>
-      <li class="nav-item{{ (URL::current() == route('admin.users.index')) ? ' active' : null }}">
+      <li class="nav-item{{ (request()->is('admin/users*')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('admin.users.index') }}">Пользователи</a>
       </li>
     </ul>
@@ -29,7 +29,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <form method="post" action="{{ route('admin.users.logout') }}">
             @csrf
-            
+
             <button type="submit" class="dropdown-item">Выход</button>
           </form>
         </div>
