@@ -1,5 +1,5 @@
 <div class="card mt-3">
-  <h5 class="card-header bg-white">Новый регистратор</h5>
+  <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый регистратор' : 'Редактирование регистратора'}}</h5>
 
   <div class="card-body">
     <form enctype="multipart/form-data" method="post" action="{{ (request()->is('admin/registrars/create')) ? route('admin.registrars.store') : route('admin.registrars.update', ['id' => $registrar->id]) }}">

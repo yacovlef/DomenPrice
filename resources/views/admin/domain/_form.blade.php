@@ -1,5 +1,5 @@
 <div class="card mt-3">
-  <h5 class="card-header bg-white">Новый домен</h5>
+  <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый домен' : 'Редактирование домена'}}</h5>
 
   <div class="card-body">
     <form method="post" action="{{ (request()->is('admin/domains/create')) ? route('admin.domains.store') : route('admin.domains.update', ['id' => $domain->id]) }}">

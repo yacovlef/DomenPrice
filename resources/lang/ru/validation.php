@@ -132,13 +132,22 @@ return [
     */
 
     'attributes' => [
-      // admin.users.create / admin.auth.login
+      // admin.users.create (edit) / admin.login
       'first_name' => 'имя',
       'last_name' => 'фамилия',
       'email' => 'эл. почта',
       'password' => 'пароль',
-      // admin.domains.create
+      // admin.domains.create (edit)
       'slug' => 'slug',
       'name' => 'имя',
+      // admin.registrars.create (edit)
+      'slug' => 'slug',
+      'name' => 'имя',
+      'logo' => 'логотип',
+      'www' => 'www',
+      // admin.prices.create (edit)
+      'price' => 'цена',
+      'domain' => 'домен',
+      'registrar' => 'регистратор',
     ],
 ];

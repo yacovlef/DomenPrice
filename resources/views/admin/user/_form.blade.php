@@ -1,5 +1,5 @@
 <div class="card mt-3">
-  <h5 class="card-header bg-white">Новый пользователь</h5>
+  <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый пользователь' : 'Редактирование пользователя'}}</h5>
 
   <div class="card-body">
     <form method="post" action="{{ (request()->is('admin/users/create')) ? route('admin.users.store') : route('admin.users.update', ['id' => $user->id]) }}">

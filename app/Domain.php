@@ -9,4 +9,9 @@ class Domain extends Model
   protected $fillable = [
       'slug', 'name',
   ];
+
+  public function prices()
+  {
+    return $this->hasMany('App\Price');
+  }
 }
