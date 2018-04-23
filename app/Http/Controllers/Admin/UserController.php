@@ -150,7 +150,7 @@ class UserController extends Controller
           return redirect()->intended();
       }
 
-      return redirect()->route('admin.auth.index')->with('status', 'Не верная эл. почта или пароль!');
+      return redirect()->route('admin.login')->with('status', 'Не верная эл. почта или пароль!');
 
     }
 

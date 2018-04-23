@@ -6,13 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Регистраторы</a>
+        <a class="nav-link" href="">Регистраторы</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">О проекте</a>
+        <a class="nav-link" href="">О проекте</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Обратная связь</a>
+        <a class="nav-link" href="">Обратная связь</a>
       </li>
     </ul>
   </div>
