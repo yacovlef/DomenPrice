@@ -149,5 +149,9 @@ return [
       'price' => 'цена',
       'domain' => 'домен',
       'registrar' => 'регистратор',
+      // feedback
+      'feedback_name' => 'представьтесь',
+      'feedback_email' => 'ваша эл. почта',
+      'feedback_message' => 'сообщение',
     ],
 ];

@@ -16,4 +16,25 @@ class AppController extends Controller
       'domains' => $domains,
     ]);
   }
+
+  public function about()
+  {
+    return view('about');
+  }
+
+  public function feedback()
+  {
+    return view('feedback');
+  }
+
+  public function send(Request $request)
+  {
+    $request->validate([
+      'feedback_name' => 'required',
+      'feedback_email' => 'required|email',
+      'feedback_message' => 'required',
+    ]);
+
+    return redirect()->route('feedback')->with('status', 'Письмо отправлено!');
+  }
 }

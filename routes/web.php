@@ -17,6 +17,11 @@ Route::get('/domains/{domain}', 'DomainController@show')->name('domains.show');
 Route::get('/registrars', 'RegistrarController@index')->name('registrars.index');
 Route::get('/registrars/{registrar}', 'RegistrarController@show')->name('registrars.show');
 
+Route::get('/about', 'AppController@about')->name('about');
+
+Route::get('/feedback', 'AppController@feedback')->name('feedback');
+Route::post('/send', 'AppController@send')->name('send');
+
 Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
   Route::middleware('guest')->group(function () {
     Route::get('/login', 'AdminController@login')->name('login');

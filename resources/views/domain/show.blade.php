@@ -5,12 +5,12 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h1 class="mt-3">{{ $domain->name }}</h1>
+      <h5>Доменная зона: <strong>{{ $domain->name }}</strong></h5>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-auto col-sm-8 col-md-6">
-      <table class="table mt-3">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col" class="border-0 text-center">Цена</th>

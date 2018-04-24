@@ -5,12 +5,12 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h1 class="mt-3">{{ $registrar->name }}</h1>
+      <h5>Регистратор: <img src="{{ Storage::url($registrar->logo) }}" height="20" alt="registrar_logo"> <strong>{{ $registrar->name }}</strong> (<a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->www }}</a>)</h5>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-auto col-sm-8 col-md-6">
-      <table class="table mt-3">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col" class="border-0 text-center">Цена</th>

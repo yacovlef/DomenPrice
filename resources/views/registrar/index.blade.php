@@ -5,12 +5,12 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h1 class="mt-3">Регистраторы</h1>
+      <h5>Регистраторы</h5>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-auto col-sm-10 col-md-8">
-      <table class="table mt-3">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col" class="border-0 text-center"></th>

@@ -3,7 +3,7 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto col-sm-10 col-md-8">
-      <table class="table mt-3">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col" class="border-0"></th>
