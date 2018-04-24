@@ -19,6 +19,13 @@ class RegistrarController extends Controller
 
   public function show($slug)
   {
+    $registrar = Registrar::where('slug', $slug)->firstOrFail();
 
+    $prices = $registrar->prices()->orderBy('price')->paginate(10);
+
+    return view('registrar.show',[
+      'registrar' => $registrar,
+      'prices' => $prices,
+    ]);
   }
 }
