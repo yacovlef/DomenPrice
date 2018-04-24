@@ -15,10 +15,10 @@
           @foreach ($domains as $domain)
             @if ($domain->prices_count > 0)
               <tr>
-                <th scope="row"><a href="" class="text-dark">{{ $domain->name }}</a></th>
+                <th scope="row"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">{{ $domain->name }}</a></th>
                 <td class="text-center bg-light">{{ $domain->prices()->orderBy('price')->first()->price }} руб.</td>
                 <td class="text-center bg-light"><img src="{{ Storage::url($domain->prices()->orderBy('price')->first()->registrar->logo) }}" height="20" alt="registrar_logo"> <a href="" class="text-dark">{{ $domain->prices()->orderBy('price')->first()->registrar->name }}</a></td>
-                <td class="text-right"><a href="" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
+                <td class="text-right"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
               </tr>
             @endif
           @endforeach

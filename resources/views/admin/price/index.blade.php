@@ -19,7 +19,7 @@
       @foreach ($prices as $price)
         <tr>
           <th scope="row">{{ $price->id }}</th>
-          <td>{{ $price->price }}</td>
+          <td>{{ $price->price }} руб.</td>
           <td>{{ $price->domain->name }}</td>
           <td>{{ $price->registrar->name }}</td>
           <td>

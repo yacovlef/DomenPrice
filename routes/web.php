@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'AppController@index')->name('index');
+Route::get('/domains/{domain}', 'DomainController@show')->name('domains.show');
 
 Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
   Route::middleware('guest')->group(function () {
