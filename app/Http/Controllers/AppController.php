@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+
 use App\Domain;
+
+use App\Mail\Feedback;
 
 class AppController extends Controller
 {
@@ -34,6 +38,10 @@ class AppController extends Controller
       'feedback_email' => 'required|email',
       'feedback_message' => 'required',
     ]);
+
+    $email = (object) $request->all();
+
+    Mail::to('yacovlef@gmail.com')->send(new Feedback($email));
 
     return redirect()->route('feedback')->with('status', 'Письмо отправлено!');
   }
