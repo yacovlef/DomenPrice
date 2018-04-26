@@ -20,33 +20,33 @@
       </div>
 
       <div class="form-group">
-        <label for="domain">Домен</label>
-        <select id="domain" name="domain" class="form-control{{ ($errors->has('domain')) ? ' is-invalid' : null }}">
+        <label for="domain_id">Домен</label>
+        <select id="domain_id" name="domain_id" class="form-control{{ ($errors->has('domain_id')) ? ' is-invalid' : null }}">
           <option></option>
           @foreach ($domains as $domain)
             <option value="{{ $domain->id }}"{{ (request()->is('admin/prices/create')) ? null : ($price->domain_id == $domain->id) ? ' selected' : null }}>{{ $domain->name }}</option>
           @endforeach
         </select>
 
-        @if ($errors->has('domain'))
+        @if ($errors->has('domain_id'))
           <div class="invalid-feedback">
-            {{ $errors->first('domain') }}
+            {{ $errors->first('domain_id') }}
           </div>
         @endif
       </div>
 
       <div class="form-group">
-        <label for="registrar">Регистратор</label>
-        <select id="registrar" name="registrar" class="form-control{{ ($errors->has('registrar')) ? ' is-invalid' : null }}">
+        <label for="registrar_id">Регистратор</label>
+        <select id="registrar_id" name="registrar_id" class="form-control{{ ($errors->has('registrar_id')) ? ' is-invalid' : null }}">
           <option></option>
           @foreach ($registrars as $registrar)
             <option value="{{ $registrar->id }}"{{ (request()->is('admin/prices/create')) ? null : ($price->registrar_id == $registrar->id) ? ' selected' : null }}>{{ $registrar->name }}</option>
           @endforeach
         </select>
 
-        @if ($errors->has('registrar'))
+        @if ($errors->has('registrar_id'))
           <div class="invalid-feedback">
-            {{ $errors->first('registrar') }}
+            {{ $errors->first('registrar_id') }}
           </div>
         @endif
       </div>

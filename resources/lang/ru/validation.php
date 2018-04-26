@@ -147,8 +147,8 @@ return [
       'www' => 'www',
       // admin.prices.create (edit)
       'price' => 'цена',
-      'domain' => 'домен',
-      'registrar' => 'регистратор',
+      'domain_id' => 'домен',
+      'registrar_id' => 'регистратор',
       // feedback
       'feedback_name' => 'представьтесь',
       'feedback_email' => 'ваша эл. почта',

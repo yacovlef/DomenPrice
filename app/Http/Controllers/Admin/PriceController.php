@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Validation\Rule;
+
 use App\Price;
 use App\Domain;
 use App\Registrar;
@@ -20,7 +22,7 @@ class PriceController extends Controller
     {
       $prices = Price::paginate(10);
 
-      return view('admin.price.index',[
+      return view('admin.price.index', [
         'prices' => $prices,
       ]);
     }
@@ -51,12 +53,17 @@ class PriceController extends Controller
     {
       $request->validate([
         'price' => 'required|integer|max:2147483647',
-        'domain' => 'required',
-        'registrar' => 'required',
+        'domain_id' => [
+          'required',
+          Rule::unique('prices')->where(function ($query) use ($request) {
+            return $query->where('registrar_id', $request->input('registrar_id'));
+          }),
+        ],
+        'registrar_id' => 'required',
       ]);
 
-      $domain = Domain::findOrFail($request->input('domain'));
-      $registrar = Registrar::findOrFail($request->input('registrar'));
+      $domain = Domain::findOrFail($request->input('domain_id'));
+      $registrar = Registrar::findOrFail($request->input('registrar_id'));
 
       $price = new Price;
       $price->price = $request->input('price');
@@ -91,7 +98,7 @@ class PriceController extends Controller
       $domains = Domain::all();
       $registrars = Registrar::all();
 
-      return view('admin.price.edit',[
+      return view('admin.price.edit', [
         'price' => $price,
         'domains' => $domains,
         'registrars' => $registrars,
@@ -111,12 +118,17 @@ class PriceController extends Controller
 
       $request->validate([
         'price' => 'required|integer|max:2147483647',
-        'domain' => 'required',
-        'registrar' => 'required',
+        'domain_id' => [
+          'required',
+          Rule::unique('prices')->where(function ($query) use ($request) {
+            return $query->where('registrar_id', $request->input('registrar_id'));
+          })->ignore($price->id, 'id'),
+        ],
+        'registrar_id' => 'required',
       ]);
 
-      $domain = Domain::findOrFail($request->input('domain'));
-      $registrar = Registrar::findOrFail($request->input('registrar'));
+      $domain = Domain::findOrFail($request->input('domain_id'));
+      $registrar = Registrar::findOrFail($request->input('registrar_id'));
 
       $price->price = $request->input('price');
       $price->domain()->associate($domain);
