@@ -10,7 +10,7 @@
 
       <div class="form-group">
         <label for="price">Цена</label>
-        <input id="price" name="price" type="text" class="form-control{{ ($errors->has('price')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/prices/create')) ? old('price') : $price->price }}">
+        <input id="price" name="price" type="text" class="form-control{{ ($errors->has('price')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/prices/create')) ? ((old('price')) ? old('price') : null) : ((old('price')) ? old('price') : $price->price) }}">
 
         @if ($errors->has('price'))
           <div class="invalid-feedback">
@@ -24,7 +24,7 @@
         <select id="domain_id" name="domain_id" class="form-control{{ ($errors->has('domain_id')) ? ' is-invalid' : null }}">
           <option></option>
           @foreach ($domains as $domain)
-            <option value="{{ $domain->id }}"{{ (request()->is('admin/prices/create')) ? null : ($price->domain_id == $domain->id) ? ' selected' : null }}>{{ $domain->name }}</option>
+            <option value="{{ $domain->id }}"{{ (request()->is('admin/prices/create'))     ?     (   (old('domain_id')) ? ((old('domain_id') == $domain->id) ? ' selected' : null) : null   )     :     (   (old('domain_id')) ? ((old('domain_id') == $domain->id) ? ' selected' : null) : (($price->domain_id == $domain->id) ? ' selected' : null)   ) }}>{{ $domain->name }}</option>
           @endforeach
         </select>
 
@@ -40,7 +40,7 @@
         <select id="registrar_id" name="registrar_id" class="form-control{{ ($errors->has('registrar_id')) ? ' is-invalid' : null }}">
           <option></option>
           @foreach ($registrars as $registrar)
-            <option value="{{ $registrar->id }}"{{ (request()->is('admin/prices/create')) ? null : ($price->registrar_id == $registrar->id) ? ' selected' : null }}>{{ $registrar->name }}</option>
+            <option value="{{ $registrar->id }}"{{ (request()->is('admin/prices/create'))     ?     (   (old('registrar_id')) ? ((old('registrar_id') == $registrar->id) ? ' selected' : null) : null   )     :     (   (old('registrar_id')) ? ((old('registrar_id') == $registrar->id) ? ' selected' : null) : (($price->registrar_id == $registrar->id) ? ' selected' : null)   ) }}>{{ $registrar->name }}</option>
           @endforeach
         </select>
 

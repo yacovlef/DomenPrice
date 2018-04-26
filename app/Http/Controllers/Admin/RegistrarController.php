@@ -54,7 +54,7 @@ class RegistrarController extends Controller
       $registrar = Registrar::create([
           'slug' => $request->input('slug'),
           'name' => $request->input('name'),
-          'logo' => $request->file('logo')->store('public/registrar/avatar'),
+          'logo' => $request->file('logo')->storeAs('public/registrar/avatar', $request->input('slug') . '.' . $request->file('logo')->extension()),
           'www' => $request->input('www'),
       ]);
 
@@ -118,7 +118,7 @@ class RegistrarController extends Controller
         Storage::delete($registrar->logo);
 
         $registrar->update([
-          'logo' => $request->file('logo')->store('public/registrar/avatar'),
+          'logo' => $request->file('logo')->storeAs('public/registrar/avatar', $request->input('slug') . '.' . $request->file('logo')->extension()),
         ]);
       }
 
