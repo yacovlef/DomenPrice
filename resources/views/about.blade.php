@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title', ' | О сервисе')
+
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
@@ -8,7 +10,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-auto col-sm-8 col-md-6">
-      <p></p>
+      <p><strong>{{ env('APP_NAME') }}</strong> - помогает найти лучшее ценовое предложение на покупку доменного имени.</p>
     </div>
   </div>
 @endsection

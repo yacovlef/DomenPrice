@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card">
   <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новая цена' : 'Редактирование цены'}}</h5>
 
   <div class="card-body">

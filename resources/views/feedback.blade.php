@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title', ' | Обратная связь')
+
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">

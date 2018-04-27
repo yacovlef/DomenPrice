@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card">
   <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый домен' : 'Редактирование домена'}}</h5>
 
   <div class="card-body">
@@ -10,7 +10,7 @@
 
       <div class="form-group">
         <label for="slug">Slug</label>
-        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? old('slug') : $domain->slug }}">
+        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? ((old('slug')) ? old('slug') : null) : ((old('slug')) ? old('slug') : $domain->slug) }}">
 
         @if ($errors->has('slug'))
           <div class="invalid-feedback">
@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label for="name">Имя</label>
-        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? old('name') : $domain->name }}">
+        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/domains/create')) ? ((old('name')) ? old('name') : null) : ((old('name')) ? old('name') : $domain->name) }}">                                                                                                                          
 
         @if ($errors->has('name'))
           <div class="invalid-feedback">

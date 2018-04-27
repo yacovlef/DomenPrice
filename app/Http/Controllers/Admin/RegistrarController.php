@@ -99,13 +99,19 @@ class RegistrarController extends Controller
       $registrar = Registrar::findOrFail($id);
 
       $request->validate([
-        'slug' => 'required|max:255',
-        'slug' => Rule::unique('registrars')->ignore($registrar->id, 'id'),
-        'name' => 'required|max:255',
-        'name' => Rule::unique('registrars')->ignore($registrar->id, 'id'),
+        'slug' => [
+          'required', 'max:255',
+          Rule::unique('registrars')->ignore($registrar->id, 'id'),
+        ],
+        'name' => [
+          'required', 'max:255',
+          Rule::unique('registrars')->ignore($registrar->id, 'id'),
+        ],
         'logo' => 'required|image|max:255',
-        'www' => 'required|url|max:255',
-        'www' => Rule::unique('registrars')->ignore($registrar->id, 'id'),
+        'www' => [
+          'required', 'url', 'max:255',
+          Rule::unique('registrars')->ignore($registrar->id, 'id'),
+        ],
       ]);
 
       $registrar->update([

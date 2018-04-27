@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card">
   <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый регистратор' : 'Редактирование регистратора'}}</h5>
 
   <div class="card-body">
@@ -10,7 +10,7 @@
 
       <div class="form-group">
         <label for="slug">Slug</label>
-        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? old('slug') : $registrar->slug }}">
+        <input id="slug" name="slug" type="text" class="form-control{{ ($errors->has('slug')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? ((old('slug')) ? old('slug') : null) : ((old('slug')) ? old('slug') : $registrar->slug) }}">
 
         @if ($errors->has('slug'))
           <div class="invalid-feedback">
@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label for="name">Имя</label>
-        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? old('name') : $registrar->name }}">
+        <input id="name" name="name" type="text" class="form-control{{ ($errors->has('name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? ((old('name')) ? old('name') : null) : ((old('name')) ? old('name') : $registrar->name) }}">
 
         @if ($errors->has('name'))
           <div class="invalid-feedback">
@@ -43,7 +43,7 @@
 
       <div class="form-group">
         <label for="www">WWW</label>
-        <input id="www" name="www" type="text" class="form-control{{ ($errors->has('www')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? old('www') : $registrar->www }}">
+        <input id="www" name="www" type="text" class="form-control{{ ($errors->has('www')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/registrars/create')) ? ((old('www')) ? old('www') : null) : ((old('www')) ? old('www') : $registrar->www) }}">
 
         @if ($errors->has('www'))
           <div class="invalid-feedback">

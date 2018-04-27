@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card">
   <h5 class="card-header bg-white">{{ (request()->is('admin/prices/create')) ? 'Новый пользователь' : 'Редактирование пользователя'}}</h5>
 
   <div class="card-body">
@@ -10,7 +10,7 @@
 
       <div class="form-group">
         <label for="first_name">Имя</label>
-        <input id="first_name" name="first_name" type="text" class="form-control{{ ($errors->has('first_name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? old('first_name') : $user->first_name }}">
+        <input id="first_name" name="first_name" type="text" class="form-control{{ ($errors->has('first_name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? ((old('first_name')) ? old('first_name') : null) : ((old('first_name')) ? old('first_name') : $user->first_name) }}">
 
         @if ($errors->has('first_name'))
           <div class="invalid-feedback">
@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label for="last_name">Фамилия</label>
-        <input id="last_name" name="last_name" type="text" class="form-control{{ ($errors->has('last_name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? old('last_name') : $user->last_name }}">
+        <input id="last_name" name="last_name" type="text" class="form-control{{ ($errors->has('last_name')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? ((old('last_name')) ? old('last_name') : null) : ((old('last_name')) ? old('last_name') : $user->last_name) }}">
 
         @if ($errors->has('last_name'))
           <div class="invalid-feedback">
@@ -32,7 +32,7 @@
 
       <div class="form-group">
         <label for="email">Эл. почта</label>
-        <input id="email" name="email" type="text" class="form-control{{ ($errors->has('email')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? old('email') : $user->email }}">
+        <input id="email" name="email" type="text" class="form-control{{ ($errors->has('email')) ? ' is-invalid' : null }}" value="{{ (request()->is('admin/users/create')) ? ((old('email')) ? old('email') : null) : ((old('email')) ? old('email') : $user->email) }}">
 
         @if ($errors->has('email'))
           <div class="invalid-feedback">

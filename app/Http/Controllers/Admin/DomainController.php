@@ -91,10 +91,14 @@ class DomainController extends Controller
       $domain = Domain::findOrFail($id);
 
       $request->validate([
-        'slug' => 'required|max:255|unique:domains',
-        'slug' => Rule::unique('domains')->ignore($domain->id, 'id'),
-        'name' => 'required|max:255|unique:domains',
-        'name' => Rule::unique('domains')->ignore($domain->id, 'id'),
+        'slug' => [
+          'required', 'max:255',
+          Rule::unique('domains')->ignore($domain->id, 'id'),
+        ],
+        'name' => [
+          'required', 'max:255',
+          Rule::unique('domains')->ignore($domain->id, 'id'),
+        ],
       ]);
 
       $domain->update($request->all());

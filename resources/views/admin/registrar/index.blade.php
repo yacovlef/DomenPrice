@@ -1,9 +1,9 @@
 @extends('admin.layout.admin')
 
-@section('title', ' / Панель администратора / Регистраторы')
+@section('title', ' | Панель администратора | Регистраторы')
 
 @section('content')
-  <a class="btn btn-outline-dark mt-3" href="{{ route('admin.registrars.create') }}" role="button">Добавить регистратора</a>
+  <a class="btn btn-outline-dark" href="{{ route('admin.registrars.create') }}" role="button">Добавить регистратора</a>
 
   <table class="table mt-3">
     <thead>
@@ -22,7 +22,7 @@
           <th scope="row">{{ $registrar->id }}</th>
           <td>{{ $registrar->slug }}</td>
           <td>{{ $registrar->name }}</td>
-          <td><img src="{{ Storage::url($registrar->logo) }}" height="30" alt="registrar_logo"></td>
+          <td><img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"></td>
           <td>{{ $registrar->www }}</td>
           <td>
             <a class="btn btn-outline-dark btn-sm" href="{{ route('admin.registrars.edit', ['id' => $registrar->id]) }}" role="button">Редактировать</a>

@@ -102,8 +102,10 @@ class UserController extends Controller
       $request->validate([
         'first_name' => 'required|max:255',
         'last_name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-        'email' => Rule::unique('users')->ignore($user->id, 'id'),
+        'email' => [
+          'required', 'email', 'max:255',
+          Rule::unique('users')->ignore($user->id, 'id'),
+        ],
         'password' => 'nullable|min:6|max:255|confirmed',
       ]);
 

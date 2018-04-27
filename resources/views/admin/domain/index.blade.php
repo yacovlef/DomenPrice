@@ -1,9 +1,9 @@
 @extends('admin.layout.admin')
 
-@section('title', ' / Панель администратора / Домены')
+@section('title', ' | Панель администратора | Домены')
 
 @section('content')
-  <a class="btn btn-outline-dark mt-3" href="{{ route('admin.domains.create') }}" role="button">Добавить домен</a>
+  <a class="btn btn-outline-dark" href="{{ route('admin.domains.create') }}" role="button">Добавить домен</a>
 
   <table class="table mt-3">
     <thead>

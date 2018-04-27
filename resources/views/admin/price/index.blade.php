@@ -3,7 +3,7 @@
 @section('title', ' / Панель администратора / Цены')
 
 @section('content')
-  <a class="btn btn-outline-dark mt-3" href="{{ route('admin.prices.create') }}" role="button">Добавить цену</a>
+  <a class="btn btn-outline-dark" href="{{ route('admin.prices.create') }}" role="button">Добавить цену</a>
 
   <table class="table mt-3">
     <thead>

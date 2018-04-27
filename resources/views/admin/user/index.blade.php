@@ -1,9 +1,9 @@
 @extends('admin.layout.admin')
 
-@section('title', ' / Панель администратора / Пользователи')
+@section('title', ' | Панель администратора | Пользователи')
 
 @section('content')
-  <a class="btn btn-outline-dark mt-3" href="{{ route('admin.users.create') }}" role="button">Добавить пользователя</a>
+  <a class="btn btn-outline-dark" href="{{ route('admin.users.create') }}" role="button">Добавить пользователя</a>
 
   <table class="table mt-3">
     <thead>

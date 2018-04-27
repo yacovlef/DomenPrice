@@ -1,6 +1,6 @@
 @extends('admin.layout.admin')
 
-@section('title', ' / Вход в панель администратора')
+@section('title', ' | Вход в панель администратора')
 
 @section('content')
   <div class="card mt-3">
