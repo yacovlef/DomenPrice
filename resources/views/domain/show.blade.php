@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', ' / Домены')
+@section('title', ' | Доменная зона: ' . $domain->name)
 
 @section('content')
   <div class="row justify-content-center">

@@ -13,7 +13,7 @@
   <body>
     <div class="container">
       @include('layout._navbar')
-
+      
       @yield('content')
     </div>
 
