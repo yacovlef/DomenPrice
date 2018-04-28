@@ -14,8 +14,12 @@
     <title>{{ env('APP_NAME') }}@yield('title')</title>
   </head>
   <body>
-    <div class="container">
-      @include('layout._navbar')
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          @include('layout._navbar')
+        </div>
+      </div>
 
       @yield('content')
     </div>

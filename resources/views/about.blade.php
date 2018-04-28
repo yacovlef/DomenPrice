@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col col-sm-8 col-md-6">
+    <div class="col-md-10 col-lg-8 col-xl-6">
       <p><strong>{{ env('APP_NAME') }}</strong> - помогает найти лучшее ценовое предложение на покупку доменного имени.</p>
     </div>
   </div>

@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col col-sm-8 col-md-6">
+    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
       <table class="table">
         <thead>
           <tr>

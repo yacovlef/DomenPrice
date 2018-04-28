@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col col-sm-10 col-md-8">
+    <div class="col-md-10 col-lg-8 col-xl-6">
       @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ session('status') }}
