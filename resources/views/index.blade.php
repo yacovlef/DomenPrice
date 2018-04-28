@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="row justify-content-center">
-    <div class="col-auto col-sm-10 col-md-8">
+    <div class="col col-sm-10 col-md-8">
       <table class="table">
         <thead>
           <tr>

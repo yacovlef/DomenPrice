@@ -3,13 +3,13 @@
 @section('title', ' | Доменная зона: ' . $domain->name)
 
 @section('content')
-  <div class="row justify-content-center">
-    <div class="col-auto">
+  <div class="row">
+    <div class="col text-center">
       <h5>Доменная зона: <strong>{{ $domain->name }}</strong></h5>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-auto col-sm-8 col-md-6">
+    <div class="col col-sm-8 col-md-6">
       <table class="table">
         <thead>
           <tr>

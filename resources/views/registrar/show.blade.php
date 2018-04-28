@@ -3,13 +3,13 @@
 @section('title', ' | Регистратор: ' . $registrar->name)
 
 @section('content')
-  <div class="row justify-content-center">
-    <div class="col-auto">
+  <div class="row">
+    <div class="col text-center">
       <h5>Регистратор: <img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"> <strong>{{ $registrar->name }}</strong> (<a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->www }}</a>)</h5>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-auto col-sm-8 col-md-6">
+    <div class="col col-sm-8 col-md-6">
       <table class="table">
         <thead>
           <tr>

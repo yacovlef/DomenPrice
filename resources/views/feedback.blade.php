@@ -3,13 +3,13 @@
 @section('title', ' | Обратная связь')
 
 @section('content')
-  <div class="row justify-content-center">
-    <div class="col-auto">
+  <div class="row">
+    <div class="col text-center">
       <h5>Обратная связь</h5>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-auto col-sm-10 col-md-8">
+    <div class="col col-sm-10 col-md-8">
       @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ session('status') }}
