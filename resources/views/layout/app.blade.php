@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
   <head>
-    <!-- Google Analytics -->
-    <script src="/js/gtag.js"></script>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
