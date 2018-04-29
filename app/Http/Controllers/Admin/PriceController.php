@@ -20,7 +20,7 @@ class PriceController extends Controller
      */
     public function index()
     {
-      $prices = Price::paginate(10);
+      $prices = Price::paginate(15);
 
       return view('admin.price.index', [
         'prices' => $prices,

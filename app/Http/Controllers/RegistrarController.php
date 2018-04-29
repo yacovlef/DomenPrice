@@ -10,7 +10,7 @@ class RegistrarController extends Controller
 {
   public function index()
   {
-    $registrars = Registrar::withCount('prices')->orderBy('prices_count', 'desc')->paginate(10);
+    $registrars = Registrar::withCount('prices')->orderBy('prices_count', 'desc')->paginate(15);
 
     return view('registrar.index',[
       'registrars' => $registrars,
@@ -21,7 +21,7 @@ class RegistrarController extends Controller
   {
     $registrar = Registrar::where('slug', $slug)->firstOrFail();
 
-    $prices = $registrar->prices()->orderBy('price')->paginate(10);
+    $prices = $registrar->prices()->orderBy('price')->paginate(15);
 
     return view('registrar.show',[
       'registrar' => $registrar,

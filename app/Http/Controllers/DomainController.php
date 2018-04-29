@@ -18,7 +18,7 @@ class DomainController extends Controller
   {
     $domain = Domain::where('slug', $slug)->firstOrFail();
 
-    $prices = $domain->prices()->orderBy('price')->paginate(10);
+    $prices = $domain->prices()->orderBy('price')->paginate(15);
 
     return view('domain.show',[
       'domain' => $domain,

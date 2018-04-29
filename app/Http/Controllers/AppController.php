@@ -14,7 +14,7 @@ class AppController extends Controller
 {
   public function index()
   {
-    $domains = Domain::withCount('prices')->orderBy('prices_count', 'desc')->paginate(10);
+    $domains = Domain::withCount('prices')->orderBy('prices_count', 'desc')->paginate(15);
 
     return view('index',[
       'domains' => $domains,

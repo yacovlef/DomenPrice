@@ -19,7 +19,7 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-      $registrars = Registrar::paginate(10);
+      $registrars = Registrar::paginate(15);
 
       return view('admin.registrar.index',[
         'registrars' => $registrars,
