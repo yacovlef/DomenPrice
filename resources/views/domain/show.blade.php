@@ -21,7 +21,7 @@
           @foreach ($prices as $price)
             <tr>
               <td class="text-center">{{ $price->price }} руб.</td>
-              <td class="text-center"><img src="{{ Storage::url($price->registrar->logo) }}" height="25" alt="registrar_logo"> <a href="{{ route('registrars.show', ['slug' => $price->registrar->slug]) }}" class="text-dark">{{ $price->registrar->name }}</a></td>
+              <td class="text-center"><img src="{{ Storage::url($price->registrar->logo) }}" alt="registrar_logo"> <a href="{{ route('registrars.show', ['slug' => $price->registrar->slug]) }}" class="text-dark">{{ $price->registrar->name }}</a></td>
             </tr>
           @endforeach
         </tbody>

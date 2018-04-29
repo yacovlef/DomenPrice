@@ -5,7 +5,7 @@
 @section('content')
   <div class="row">
     <div class="col text-center">
-      <h5>Регистратор: <img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"> <strong>{{ $registrar->name }}</strong> (<a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->www }}</a>)</h5>
+      <h5>Регистратор: <img src="{{ Storage::url($registrar->logo) }}" alt="registrar_logo"> <strong>{{ $registrar->name }}</strong> (<a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->www }}</a>)</h5>
     </div>
   </div>
   <div class="row justify-content-center">
