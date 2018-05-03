@@ -16,10 +16,15 @@
         <tbody>
           @foreach ($domains as $domain)
             @if ($domain->prices_count > 0)
+              @php
+                $price = $domain->prices()->orderBy('price')->first();
+                $registrar = $price->registrar;
+              @endphp
+
               <tr>
                 <th scope="row"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">{{ $domain->name }}</a></th>
-                <td class="text-center bg-light">{{ $domain->prices()->orderBy('price')->first()->price }} руб.</td>
-                <td class="text-center bg-light"><img src="{{ Storage::url($domain->prices()->orderBy('price')->first()->registrar->logo) }}" height="25" alt="registrar_logo"> <a href="{{ $domain->prices()->orderBy('price')->first()->registrar->www }}" class="text-dark">{{ $domain->prices()->orderBy('price')->first()->registrar->name }}</a></td>
+                <td class="text-center bg-light">{{ $price->price }} руб.</td>
+                <td class="text-center bg-light"><img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"> <a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->name }}</a></td>
                 <td class="text-right"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
               </tr>
             @endif
