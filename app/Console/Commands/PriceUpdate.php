@@ -41,32 +41,115 @@ class PriceUpdate extends Command
      */
     public function handle()
     {
-      $prices = Registrar::findOrFail(1)->prices();
+      // REG
+      //------------------------------------------------------------------------
+      $prices = Registrar::findOrFail(1)->prices()->get();
 
       foreach ($prices as $price) {
-        $domainZone = mb_strtolower($price->domain()->name);
-        $domainName = ($domainZone == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew';
-        $domainName = $domainName . $domainZone;
+        $domainZone =  mb_strtolower($price->domain->name);
+        $domainName = (($domainZone == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $domainZone;
+        $method = 'POST';
+        $registarRequest = 'https://www.reg.ru/domain/new/check_queue';
+        $registarRequestQuery = [
+          'ru' => 1,
+          'domains' => $domainName,
+        ];
 
         do {
-          $domainPrice = $this->getDomainPrice($domainName);
+          $domainPrice = $this->getDomainPrice($method, $registarRequest, $registarRequestQuery)['domains'][0]['price'] ?? null;
         } while (!$domainPrice);
 
-        $this->line($domainName . ' | ' . $domainPrice);
+        if ($domainPrice != $price->price) {
+          $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $domainZone . ' | NEW: ' . $domainPrice . ' | OLD: ' . $price->price);
+        }
       }
+      //------------------------------------------------------------------------
+
+      // RUcenter
+      //------------------------------------------------------------------------
+      $prices = Registrar::findOrFail(2)->prices()->get();
+
+      foreach ($prices as $price) {
+        $domainZone =  mb_strtolower($price->domain->name);
+        $domainName = (($domainZone == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $domainZone;
+        $method = 'POST';
+        $registarRequest = 'https://www.nic.ru/app/v1/get/services';
+        $registarRequestQuery = [
+          'lang' => 'ru',
+          'limit' => 1,
+          'offset' => 0,
+          'search' => $domainName,
+          'url' => 'domains',
+        ];
+
+        do {
+          $domainPrice = $this->getDomainPrice($method, $registarRequest, $registarRequestQuery)['body']['services'][0]['prices'][0]['cost']['value'] ?? null;
+        } while (!$domainPrice);
+
+        if ($domainPrice != $price->price) {
+          $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $domainZone . ' | NEW: ' . $domainPrice . ' | OLD: ' . $price->price);
+        }
+      }
+      //------------------------------------------------------------------------
+
+      // FOZZY
+      //------------------------------------------------------------------------
+      $prices = Registrar::findOrFail(8)->prices()->get();
+
+      foreach ($prices as $price) {
+        $domainZone =  mb_strtolower($price->domain->name);
+        $domainName = (($domainZone == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $domainZone;
+        $method = 'GET';
+        $registarRequest = 'https://accounts.fozzy.com/tools/api/prices/domains/' . $domainName;
+        $registarRequestQuery = [
+          'locale' => 'ru',
+          'actiontype' => 'register',
+          'currency' => 'rub',
+        ];
+
+        do {
+          $domainPrice = (int) $this->getDomainPrice($method, $registarRequest, $registarRequestQuery)['data']['attributes']['prices'][0]['price'];
+        } while (!$domainPrice);
+
+        if ($domainPrice != $price->price) {
+          $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $domainZone . ' | NEW: ' . $domainPrice . ' | OLD: ' . $price->price);
+        }
+      }
+      //------------------------------------------------------------------------
+
+      // GoDaddy
+      //------------------------------------------------------------------------
+      $prices = Registrar::findOrFail(5)->prices()->get();
+
+      foreach ($prices as $price) {
+        $domainZone =  mb_strtolower($price->domain->name);
+        $domainName = (($domainZone == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $domainZone;
+        $method = 'GET';
+        $registarRequest = 'https://ru.godaddy.com/domainsapi/v1/search/exact';
+        $registarRequestQuery = [
+          'q' => $domainName,
+        ];
+
+        do {
+          $domainPrice = (int) $this->getDomainPrice($method, $registarRequest, $registarRequestQuery)['Products'][0]['PriceInfo']['CurrentPrice'];
+        } while (!$domainPrice);
+
+        if ($domainPrice != $price->price) {
+          $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $domainZone . ' | NEW: ' . $domainPrice . ' | OLD: ' . $price->price);
+        }
+      }
+      //------------------------------------------------------------------------
     }
 
-    public function getDomainPrice($domainName)
+
+    public function getDomainPrice($method, $registarRequest, $registarRequestQuery)
     {
       $client = new Client();
 
-      $result = $client->request('POST', 'https://www.reg.ru/domain/new/check_queue', [
-        'query' => [
-          'ru' => 1,
-          'domains' => $domainName,
-        ]
+      $result = $client->request($method, $registarRequest, [
+        'query' => $registarRequestQuery,
       ])->getBody();
 
-      return json_decode($result, true)['domains'][0]['price'] ?? null;
+      return json_decode($result, true);
     }
 }
