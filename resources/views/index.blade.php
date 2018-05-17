@@ -5,7 +5,7 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
-      <h3>Найдите лучшее ценовое предложение на доменные зоны</h3>
+      <h5>Найдите лучшее ценовое предложение на доменные зоны</h5>
     </div>
   </div>
   <div class="row justify-content-center">
