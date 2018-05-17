@@ -8,9 +8,6 @@
       <li class="nav-item{{ (request()->is('registrars*')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('registrars.index') }}">Регистраторы</a>
       </li>
-      <li class="nav-item{{ (request()->is('about')) ? ' active' : null }}">
-        <a class="nav-link" href="{{ route('about') }}">О сервисе</a>
-      </li>
       <li class="nav-item{{ (request()->is('feedback')) ? ' active' : null }}">
         <a class="nav-link" href="{{ route('feedback') }}">Обратная связь</a>
       </li>

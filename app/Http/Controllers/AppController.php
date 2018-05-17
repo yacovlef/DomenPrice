@@ -15,7 +15,7 @@ class AppController extends Controller
 {
   public function index()
   {
-    $domains = Domain::withCount('prices')->orderBy('prices_count', 'desc')->paginate(15);
+    $domains = Domain::withCount('prices')->orderBy('prices_count', 'desc')->paginate(20);
 
     $priceUpdateLast = Price::orderBy('updated_at', 'desc')->first()->updated_at->diffForHumans();
 
@@ -23,11 +23,6 @@ class AppController extends Controller
       'domains' => $domains,
       'priceUpdateLast' => $priceUpdateLast,
     ]);
-  }
-
-  public function about()
-  {
-    return view('about');
   }
 
   public function feedback()

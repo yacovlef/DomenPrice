@@ -5,6 +5,11 @@
 @section('content')
   <div class="row justify-content-center">
     <div class="col-auto">
+      <h3>Найдите лучшее ценовое предложение на доменные зоны</h3>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-auto">
       <h6>{{ 'Последнее обновление: ' . $priceUpdateLast }}</h6>
     </div>
   </div>
