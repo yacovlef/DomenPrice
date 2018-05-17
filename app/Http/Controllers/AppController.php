@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Domain;
+use App\Price;
 
 use App\Mail\Feedback;
 
@@ -16,8 +17,11 @@ class AppController extends Controller
   {
     $domains = Domain::withCount('prices')->orderBy('prices_count', 'desc')->paginate(15);
 
+    $priceUpdateLast = Price::orderBy('updated_at', 'desc')->first()->updated_at->diffForHumans();
+
     return view('index',[
       'domains' => $domains,
+      'priceUpdateLast' => $priceUpdateLast,
     ]);
   }
 

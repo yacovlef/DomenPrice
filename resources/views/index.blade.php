@@ -4,6 +4,11 @@
 
 @section('content')
   <div class="row justify-content-center">
+    <div class="col-auto">
+      <h6>{{ 'Последнее обновление: ' . $priceUpdateLast }}</h6>
+    </div>
+  </div>
+  <div class="row justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-6">
       <table class="table">
         <thead>
