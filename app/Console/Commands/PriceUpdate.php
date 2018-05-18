@@ -45,6 +45,7 @@ class PriceUpdate extends Command
       $this->reg();
       $this->rucenter();
       $this->masterhost();
+      $this->timeweb();
       $this->goDaddy();
       $this->hostinger();
       $this->jino();
@@ -139,7 +140,37 @@ class PriceUpdate extends Command
 
         foreach ($prices as $price) {
           $tld =  mb_strtolower($price->domain->name);
-          $tldName = (($tld == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $tld;
+
+          if ($pricesExt[$tld] != $price->price) {
+            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
+          }
+        }
+      }
+      //------------------------------------------------------------------------
+
+      // timeweb
+      //------------------------------------------------------------------------
+      public function timeweb()
+      {
+        $html = file_get_contents('https://timeweb.com/ru/services/domains/');
+
+        preg_match('/var arDomains=(.*);var arDomainList/', $html, $matches);
+
+        $domainsExt = json_decode($matches[1],  true);
+
+        foreach ($domainsExt as $node) {
+          foreach ($node as $domainsExt) {
+            $tldExt = '.' . $domainsExt['name'];
+            $priceExt = $domainsExt['price'];
+
+            $pricesExt[$tldExt] = $priceExt;
+          }
+        }
+
+        $prices = Registrar::findOrFail(4)->prices()->get();
+
+        foreach ($prices as $price) {
+          $tld =  mb_strtolower($price->domain->name);
 
           if ($pricesExt[$tld] != $price->price) {
             $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
