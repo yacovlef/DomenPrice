@@ -22,7 +22,7 @@
           @foreach ($registrars as $registrar)
             <tr>
               <td class="text-center"><img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"> <a href="{{ route('registrars.show', ['slug' => $registrar->slug]) }}" class="text-dark">{{ $registrar->name }}</a></td>
-              <td class="text-center"><a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->www }}</a></td>
+              <td class="text-center"><a href="{{ $registrar->www }}" target="_blank" class="text-dark">{{ $registrar->www }}</a></td>
               <td class="text-center"><a href="{{ route('registrars.show', ['slug' => $registrar->slug]) }}" class="text-dark">{{ $registrar->prices_count }}</a></td>
             </tr>
           @endforeach

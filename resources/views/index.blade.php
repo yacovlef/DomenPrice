@@ -3,14 +3,19 @@
 @section('title', ' - сравнение цен на доменные зоны')
 
 @section('content')
-  <div class="row justify-content-center">
-    <div class="col-auto">
+  <div class="row">
+    <div class="col text-center">
       <h5>Найдите лучшее ценовое предложение на доменные зоны</h5>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <h6>{{ 'Последнее обновление: ' . $priceUpdateLast }}</h6>
+  <div class="row">
+    <div class="col text-center">
+      <h6>{{ $domainsCount }} доменов | {{ $registrarsCount }} регистраторов | {{ $pricesCount }} предложений</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <h6> Последнее обновление: {{ $priceUpdateLast }}</h6>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -25,19 +30,12 @@
         </thead>
         <tbody>
           @foreach ($domains as $domain)
-            @if ($domain->prices_count > 0)
-              @php
-                $price = $domain->prices()->orderBy('price')->first();
-                $registrar = $price->registrar;
-              @endphp
-
-              <tr>
-                <th scope="row"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">{{ $domain->name }}</a></th>
-                <td class="text-center bg-light">{{ $price->price }} руб.</td>
-                <td class="text-center bg-light"><img src="{{ Storage::url($registrar->logo) }}" height="25" alt="registrar_logo"> <a href="{{ $registrar->www }}" class="text-dark">{{ $registrar->name }}</a></td>
-                <td class="text-right"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
-              </tr>
-            @endif
+            <tr>
+              <th scope="row"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">{{ $domain->name }}</a></th>
+              <td class="text-center bg-light">{{ $domain->registrar_price }} руб.</td>
+              <td class="text-center bg-light"><img src="{{ Storage::url($domain->registrar_logo) }}" height="25" alt="registrar_logo"> <a href="{{ $domain->registrar_www }}" target="_blank" class="text-dark">{{ $domain->registrar_name }}</a></td>
+              <td class="text-right"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
+            </tr>
           @endforeach
         </tbody>
       </table>
