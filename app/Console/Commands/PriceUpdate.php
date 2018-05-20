@@ -7,6 +7,8 @@ use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
+use App\Domain;
+use App\Price;
 use App\Registrar;
 
 class PriceUpdate extends Command
@@ -30,6 +32,9 @@ class PriceUpdate extends Command
      *
      * @return void
      */
+
+      private $pricesUpdate = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -50,10 +55,12 @@ class PriceUpdate extends Command
       $this->hostinger();
       $this->jino();
       $this->fozzy();
+
+      $this->_output();
     }
       // REG
       //------------------------------------------------------------------------
-        public function reg()
+        private function reg()
         {
 
         $prices = Registrar::findOrFail(1)->prices()->get();
@@ -75,7 +82,12 @@ class PriceUpdate extends Command
           } while (!$priceExt);
 
           if ($priceExt != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $priceExt . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $priceExt,
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -83,7 +95,7 @@ class PriceUpdate extends Command
 
       // RUcenter
       //------------------------------------------------------------------------
-      public function rucenter()
+      private function rucenter()
       {
         $prices = Registrar::findOrFail(2)->prices()->get();
 
@@ -107,7 +119,12 @@ class PriceUpdate extends Command
           } while (!$priceExt);
 
           if ($priceExt != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $priceExt . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $priceExt,
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -115,7 +132,7 @@ class PriceUpdate extends Command
 
       // .masterhost
       //------------------------------------------------------------------------
-      public function masterhost()
+      private function masterhost()
       {
         $method = 'POST';
         $uri = 'https://masterhost.ru/rs/products/list.json';
@@ -142,7 +159,12 @@ class PriceUpdate extends Command
           $tld =  mb_strtolower($price->domain->name);
 
           if ($pricesExt[$tld] != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $pricesExt[$tld],
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -150,7 +172,7 @@ class PriceUpdate extends Command
 
       // timeweb
       //------------------------------------------------------------------------
-      public function timeweb()
+      private function timeweb()
       {
         $html = file_get_contents('https://timeweb.com/ru/services/domains/');
 
@@ -173,7 +195,12 @@ class PriceUpdate extends Command
           $tld =  mb_strtolower($price->domain->name);
 
           if ($pricesExt[$tld] != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $pricesExt[$tld],
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -181,7 +208,7 @@ class PriceUpdate extends Command
 
       // GoDaddy
       //------------------------------------------------------------------------
-      public function goDaddy()
+      private function goDaddy()
       {
         $prices = Registrar::findOrFail(5)->prices()->get();
 
@@ -201,7 +228,12 @@ class PriceUpdate extends Command
           } while (!$priceExt);
 
           if ($priceExt != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $priceExt . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $priceExt,
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -209,7 +241,7 @@ class PriceUpdate extends Command
 
       // HOSTINGER
       //------------------------------------------------------------------------
-      public function hostinger()
+      private function hostinger()
       {
         $method = 'POST';
         $uri = 'https://www.hostinger.ru/domain-search';
@@ -235,7 +267,12 @@ class PriceUpdate extends Command
           $tld =  mb_strtolower($price->domain->name);
 
           if ($pricesExt[$tld] != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $pricesExt[$tld],
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -243,7 +280,7 @@ class PriceUpdate extends Command
 
       // ДЖИНО
       //------------------------------------------------------------------------
-      public function jino()
+      private function jino()
       {
         $html = file_get_contents('https://domains.jino.ru/price/');
 
@@ -267,7 +304,12 @@ class PriceUpdate extends Command
           $tldName = (($tld == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $tld;
 
           if ($pricesExt[$tld] != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $pricesExt[$tld] . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $pricesExt[$tld],
+              'old' => $price->price,
+            ];
           }
         }
       }
@@ -275,7 +317,7 @@ class PriceUpdate extends Command
 
       // FOZZY
       //------------------------------------------------------------------------
-      public function fozzy()
+      private function fozzy()
       {
         $prices = Registrar::findOrFail(8)->prices()->get();
 
@@ -297,14 +339,19 @@ class PriceUpdate extends Command
           } while (!$priceExt);
 
           if ($priceExt != $price->price) {
-            $this->info('| Регистратор: ' . $price->registrar->name . ' | Домен: ' . $tld . ' | NEW: ' . $priceExt . ' | OLD: ' . $price->price);
+            $this->pricesUpdate[] = [
+              'registrar' => $price->registrar->name,
+              'domain' => $tld,
+              'new' => $priceExt,
+              'old' => $price->price,
+            ];
           }
         }
       }
       //------------------------------------------------------------------------
 
 
-    public function _getDomainPrice($method, $uri, $type, $query)
+    private function _getDomainPrice($method, $uri, $type, $query)
     {
       $client = new Client();
 
@@ -313,5 +360,31 @@ class PriceUpdate extends Command
       ])->getBody();
 
       return json_decode($result, true);
+    }
+
+    private function _output()
+    {
+      if ($this->pricesUpdate) {
+        $headers = ['Регистратор', 'Домен', 'Новая', 'Старая'];
+
+        $this->table($headers, $this->pricesUpdate);
+
+        $this->_update();
+      } else {
+        $this->line('Нет цен для обновления.');
+      }
+    }
+
+    private function _update()
+    {
+      if ($this->confirm('Обновить цены?')) {
+
+        foreach ($this->pricesUpdate as $priceUpdate) {
+          $domain = Domain::where('name', $priceUpdate['domain'])->first();
+          $registrar = Registrar::where('name', $priceUpdate['registrar'])->first();
+
+          Price::where('domain_id', $domain->id)->where('registrar_id', $registrar->id)->update(['price' => $priceUpdate['new']]);
+        }
+      }
     }
 }
