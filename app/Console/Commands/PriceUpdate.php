@@ -81,14 +81,7 @@ class PriceUpdate extends Command
             $priceExt = $this->_getDomainPrice($method, $uri, $type, $query)['domains'][0]['price'] ?? null;
           } while (!$priceExt);
 
-          if ($priceExt != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $priceExt,
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($priceExt, $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -118,14 +111,7 @@ class PriceUpdate extends Command
             $priceExt = $this->_getDomainPrice($method, $uri, $type, $query)['body']['services'][0]['prices'][0]['cost']['value'] ?? null;
           } while (!$priceExt);
 
-          if ($priceExt != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $priceExt,
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($priceExt, $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -158,14 +144,7 @@ class PriceUpdate extends Command
         foreach ($prices as $price) {
           $tld =  mb_strtolower($price->domain->name);
 
-          if ($pricesExt[$tld] != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $pricesExt[$tld],
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($pricesExt[$tld], $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -194,14 +173,7 @@ class PriceUpdate extends Command
         foreach ($prices as $price) {
           $tld =  mb_strtolower($price->domain->name);
 
-          if ($pricesExt[$tld] != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $pricesExt[$tld],
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($pricesExt[$tld], $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -227,14 +199,7 @@ class PriceUpdate extends Command
             $priceExt = (int) $this->_getDomainPrice($method, $uri, $type, $query)['Products'][0]['PriceInfo']['CurrentPrice'];
           } while (!$priceExt);
 
-          if ($priceExt != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $priceExt,
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($priceExt, $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -266,14 +231,7 @@ class PriceUpdate extends Command
         foreach ($prices as $price) {
           $tld =  mb_strtolower($price->domain->name);
 
-          if ($pricesExt[$tld] != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $pricesExt[$tld],
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($pricesExt[$tld], $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -303,14 +261,7 @@ class PriceUpdate extends Command
           $tld =  mb_strtolower($price->domain->name);
           $tldName = (($tld == '.рф') ? 'парсингдоменценац' : 'parcedomainpricew') . $tld;
 
-          if ($pricesExt[$tld] != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $pricesExt[$tld],
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($pricesExt[$tld], $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -338,14 +289,7 @@ class PriceUpdate extends Command
             $priceExt = (int) $this->_getDomainPrice($method, $uri, $type, $query)['data']['attributes']['prices'][0]['price'];
           } while (!$priceExt);
 
-          if ($priceExt != $price->price) {
-            $this->pricesUpdate[] = [
-              'registrar' => $price->registrar->name,
-              'domain' => $tld,
-              'new' => $priceExt,
-              'old' => $price->price,
-            ];
-          }
+          $this->_setPriceUpdate($priceExt, $price, $tld);
         }
       }
       //------------------------------------------------------------------------
@@ -362,10 +306,23 @@ class PriceUpdate extends Command
       return json_decode($result, true);
     }
 
+    private function _setPriceUpdate($priceExt, $price, $tld)
+    {
+      if ($priceExt != $price->price) {
+        $this->pricesUpdate[] = [
+          'registrar' => $price->registrar->name,
+          'domain' => $tld,
+          'new' => $priceExt,
+          'old' => $price->price,
+          'difference' => $priceExt - $price->price,
+        ];
+      }
+    }
+
     private function _output()
     {
       if ($this->pricesUpdate) {
-        $headers = ['Регистратор', 'Домен', 'Новая', 'Старая'];
+        $headers = ['Регистратор', 'Домен', 'Новая', 'Старая', 'Разница'];
 
         $this->table($headers, $this->pricesUpdate);
 
