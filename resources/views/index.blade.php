@@ -20,11 +20,11 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-6">
-      <table class="table">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col" class="border-0"></th>
-            <th scope="col" colspan="2" class="text-center border-0 bg-light">Лучшая цена</th>
+            <th scope="col" colspan="2" class="text-center border-0 table-active">Лучшая цена</th>
             <th scope="col" class="border-0"></th>
           </tr>
         </thead>
@@ -32,8 +32,8 @@
           @foreach ($domains as $domain)
             <tr>
               <th scope="row"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">{{ $domain->name }}</a></th>
-              <td class="text-center bg-light">{{ $domain->registrar_price }} руб.</td>
-              <td class="text-center bg-light"><img src="{{ Storage::url($domain->registrar_logo) }}" height="25" alt="registrar_logo"> <a href="{{ $domain->registrar_www }}" target="_blank" class="text-dark">{{ $domain->registrar_name }}</a></td>
+              <td class="text-center table-active">{{ $domain->registrar_price }} руб.</td>
+              <td class="text-center table-active"><img src="{{ Storage::url($domain->registrar_logo) }}" height="25" alt="registrar_logo"> <a href="{{ $domain->registrar_www }}" target="_blank" class="text-dark">{{ $domain->registrar_name }}</a></td>
               <td class="text-right"><a href="{{ route('domains.show', ['slug' => $domain->slug]) }}" class="text-dark">+ {{ $domain->prices_count }} цен(ы)</a></td>
             </tr>
           @endforeach
